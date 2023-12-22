@@ -1,0 +1,6 @@
+#export_dhcp_leases
+
+#scrip para exportar los leases dhcp en el mikrotik main
+
+if ([:len [/file find name=leases.rsc]]>0) do={/file remove leases.rsc}
+/ip dhcp-server lease export file=leases_main.rsc

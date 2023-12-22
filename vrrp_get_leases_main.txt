@@ -1,0 +1,8 @@
+#get_leases_main
+
+#script para recuperar del router main los leases dhcp
+
+
+if ([:len [/file find name=leases_main.rsc]]>0) do={/file remove leases_main.rsc}
+/tool fetch mode=ftp address=192.168.88.1 src-path=leases_main.rsc user=backup password=backup*23
+if ([:len [/file find name=leases_main.rsc]]>0) do={foreach i in=[/ip dhcp-server lease find ] do={/ip dhcp-server lease remove $i}; import leases_main.rsc;}
